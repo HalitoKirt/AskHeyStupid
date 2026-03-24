@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HEY STUPID</title>
+
+  <style>
+    /* Your existing styles - unchanged */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #ffeb3b, #ff9800);
+      color: #111;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin: 0.2em 0;
+      color: #d500f9;
+      text-shadow: 4px 4px 0 #fff, 8px 8px 0 #000;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      font-size: 2.2rem;
+      margin: 0.5em 0 1.5em;
+      color: #000;
+    }
+
+    .mascot-image {
+      animation: none !important;
+      transform: none !important;
+      max-width: 300px;
+      height: auto;
+      margin: 1em 0;
+    }
+
+    .question-box {
+      background: white;
+      border: 8px solid #000;
+      border-radius: 30px;
+      padding: 30px;
+      max-width: 600px;
+      margin: 2em auto;
+      box-shadow: 10px 10px 0 #000;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 15px;
+      font-size: 1.4rem;
+      border: 4px solid #000;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: #ff1744;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.8rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 6px 6px 0 #000;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #d50000;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #stupid-answer {
+      margin-top: 2em;
+      font-size: 1.6rem;
+      color: #d500f9;
+      min-height: 80px;
+    }
+
+    #loading {
+      display: none;
+      font-size: 1.4rem;
+      color: #d500f9;
+      margin: 1em 0;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 2em;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+  </style>
+
+  <!-- Script in head with defer for reliable loading -->
+  <script defer>
+    async function giveStupidAnswer() {
+      const inputEl = document.getElementById("question");
+      const answerEl = document.getElementById("stupid-answer");
+
+      const question = inputEl.value.trim();
+      const normalized = question.toLowerCase();
+
+      const recruiterPhrases = [
+        "recruiter mode",
+        "show project summary",
+        "the left shoe is on the right foot"
+      ];
+
+      if (recruiterPhrases.includes(normalized)) {
+        window.location.href = "/recruiter.html";
+        return;
+      }
+
+      if (!question) {
+        answerEl.innerText = "Ask something dumb first, bro... 😏";
+        return;
+      }
+
+      if (question.length > 500) {
+        answerEl.innerText = "Whoa there... that's a lot of dumb.";
+        return;
+      }
+
+      try {
+        console.log("Sending request with question:", question);
+
+        const response = await fetch("/prod/ask", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+
+        console.log("Parsed data:", data);
+
+        answerEl.innerText =
+          data.answer || data.error || "My brain just blue-screened 🤡";
+
+      } catch (error) {
+        console.error("Fetch error:", error);
+        answerEl.innerText = "Something broke. Try again.";
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <h1>HEY STUPID</h1>
+  <p class="subtitle">Ask a Question.<br>Get a Dumb Answer.</p>
+
+  <img src="https://dtv3s1uajkn39.cloudfront.net/heystupid-cartoon.jpg" alt="Hey Stupid character" class="mascot-image">
+
+  <div class="question-box">
+    <input type="text" id="question" placeholder="Type your question here..." />
+    <button id="ask-button" onclick="giveStupidAnswer()">ASK NOW</button>
+    <div id="loading">Thinking stupid thoughts... 🤔</div>
+    <div id="stupid-answer">Waiting for stupidity...</div>
+  </div>
+
+  <footer>Coming soon: T-shirts, mugs, and even dumber merch! 🚀</footer>
+
+</body>
+</html>

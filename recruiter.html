@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Mode | AWS Project Portfolio</title>
+  <meta
+    name="description"
+    content="Fast-skim recruiter summary of two AWS projects: a security lab and a serverless AI application."
+  />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(15, 23, 42, 0.94);
+      --panel-soft: rgba(11, 18, 32, 0.62);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --muted-2: #94a3b8;
+      --accent: #f59e0b;
+      --accent-2: #38bdf8;
+      --success: #22c55e;
+      --border-soft: rgba(148, 163, 184, 0.18);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12) 0%, transparent 28%),
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.1) 0%, transparent 24%),
+        linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 26px 18px 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .brand-badge {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(30, 41, 59, 0.98));
+      border: 1px solid var(--border-soft);
+      border-radius: 26px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #fde68a;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.04rem;
+      max-width: 820px;
+      margin: 0 0 18px;
+    }
+
+    .quick-points {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0 20px;
+    }
+
+    .quick-point {
+      background: rgba(11, 18, 32, 0.58);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .quick-point .label {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .quick-point .value {
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #111827;
+      border-color: #fbbf24;
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .nav a {
+      display: inline-flex;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.72);
+      border: 1px solid var(--border-soft);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    .section-intro {
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .project-box {
+      background: var(--panel-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .project-box p,
+    .project-box li,
+    .detail-list li {
+      color: var(--muted);
+    }
+
+    .project-box ul,
+    .detail-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .detail-list li + li,
+    .project-box li + li {
+      margin-top: 8px;
+    }
+
+    .callout {
+      border-left: 4px solid var(--success);
+      padding: 14px 16px;
+      background: rgba(34, 197, 94, 0.09);
+      border-radius: 12px;
+      color: #dcfce7;
+      margin-top: 16px;
+    }
+
+    .code-block {
+      background: #020617;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.93rem;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .quick-points,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .col-6,
+      .col-4,
+      .col-12 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .wrap {
+        padding: 18px 14px 40px;
+      }
+
+      .hero,
+      .card {
+        padding: 18px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-badge"></span>
+        <span>AWS Project Portfolio</span>
+      </div>
+      <div>Fast-Skim Recruiter View</div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">Recruiter Mode</div>
+      <h1>Two AWS projects built to demonstrate security, serverless architecture, troubleshooting, and practical AI integration.</h1>
+      <p class="subtitle">
+        This portfolio highlights one security-focused AWS lab and one serverless AI web application. Together they show cloud security thinking,
+        hands-on debugging, architecture design, and the judgment to simplify systems when that improves security, efficiency, and maintainability.
+      </p>
+
+      <div class="quick-points">
+        <div class="quick-point">
+          <span class="label">Projects</span>
+          <div class="value">Security Lab + Ask Hey Stupid</div>
+        </div>
+        <div class="quick-point">
+          <span class="label">Core AWS Services</span>
+          <div class="value">CloudFront, S3, API Gateway, Lambda, Bedrock</div>
+        </div>
+        <div class="quick-point">
+          <span class="label">Primary Strengths</span>
+          <div class="value">Security, routing, debugging, serverless design</div>
+        </div>
+        <div class="quick-point">
+          <span class="label">AI Experience</span>
+          <div class="value">Bedrock direct inference + Bedrock Agent exposure</div>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <a class="btn btn-primary" href="/resume.pdf" target="_blank" rel="noopener noreferrer">View Resume</a>
+        <a class="btn btn-secondary" href="/">Back to Site</a>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a href="#projects">Projects at a Glance</a>
+      <a href="#why-it-matters">Why It Matters</a>
+      <a href="#technical-details">Technical Details</a>
+      <a href="#about">About Me</a>
+    </nav>
+
+    <div class="grid">
+      <section id="projects" class="card col-12">
+        <h2>Projects at a Glance</h2>
+        <div class="project-grid">
+          <article class="project-box">
+            <h3>Project 1 — AWS Security Lab Plan</h3>
+            <p>
+              Security-oriented AWS project built around realistic personas such as developer-Alice and analyst-Bob to demonstrate least privilege,
+              separation of duties, monitoring, and workload protection.
+            </p>
+            <ul>
+              <li>IAM and access control thinking tied to job function</li>
+              <li>Monitoring, logging, and cloud security operations concepts</li>
+              <li>Workload hardening and investigation-oriented design</li>
+            </ul>
+          </article>
+
+          <article class="project-box">
+            <h3>Project 2 — Ask Hey Stupid</h3>
+            <p>
+              Serverless AI web application using CloudFront, S3, API Gateway, Lambda, and Amazon Bedrock. Built to demonstrate routing,
+              CORS troubleshooting, secure delivery, and practical AI integration on AWS.
+            </p>
+            <ul>
+              <li>Single public entry point through CloudFront</li>
+              <li>Frontend delivered from S3, API routed to Lambda</li>
+              <li>Production path simplified for better control and efficiency</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="why-it-matters" class="card col-12">
+        <h2>Why This Portfolio Stands Out</h2>
+        <p class="section-intro">
+          These projects show more than service familiarity. They show engineering judgment.
+        </p>
+        <ul class="detail-list">
+          <li>I can build with advanced AWS services, including Amazon Bedrock and Bedrock Agents.</li>
+          <li>I can troubleshoot real-world issues across CloudFront, S3, API Gateway, Lambda, and browser behavior.</li>
+          <li>I know when simplifying architecture is the stronger production decision.</li>
+          <li>I think in terms of security, least privilege, operational visibility, and maintainability.</li>
+        </ul>
+
+        <div class="callout">
+          Ask Hey Stupid originally explored a Bedrock Agent path. During testing, I found that direct Bedrock integration was a better fit for
+          controlling response behavior and reducing complexity. That change made the solution more secure, more efficient, and easier to operate.
+        </div>
+      </section>
+
+      <section id="technical-details" class="card col-6">
+        <h2>Ask Hey Stupid — Current Architecture</h2>
+        <div class="code-block">Browser
+   │
+   ▼
+CloudFront
+   ├── /              → S3 static site
+   └── /prod/ask*     → API Gateway
+                            │
+                            ▼
+                         Lambda
+                            │
+                            ▼
+                     Amazon Bedrock</div>
+      </section>
+
+      <section class="card col-6">
+        <h2>Technical Highlights</h2>
+        <ul class="detail-list">
+          <li>CloudFront path-based routing separates website and API traffic.</li>
+          <li>S3 hosts static assets for the frontend.</li>
+          <li>API Gateway and Lambda provide serverless backend processing.</li>
+          <li>Amazon Bedrock powers AI responses.</li>
+          <li>Bedrock Agent experience was part of development exploration, even though the final production path was simplified.</li>
+        </ul>
+      </section>
+
+      <section class="card col-6">
+        <h2>AWS Services Used</h2>
+        <ul class="detail-list">
+          <li>Amazon CloudFront</li>
+          <li>Amazon S3</li>
+          <li>Amazon API Gateway</li>
+          <li>AWS Lambda</li>
+          <li>Amazon Bedrock</li>
+          <li>Amazon Bedrock Agents</li>
+          <li>AWS IAM</li>
+          <li>Amazon CloudWatch</li>
+          <li>AWS CloudTrail</li>
+          <li>AWS WAF / Security Hub / Config / GuardDuty</li>
+        </ul>
+      </section>
+
+      <section class="card col-6">
+        <h2>What Recruiters Should Know Quickly</h2>
+        <ul class="detail-list">
+          <li>Security is a consistent theme across both projects.</li>
+          <li>These projects involved real debugging, not just setup.</li>
+          <li>The final Ask Hey Stupid design reflects practical tradeoff decisions.</li>
+          <li>The portfolio demonstrates both defensive security thinking and hands-on cloud engineering.</li>
+        </ul>
+      </section>
+
+      <section id="about" class="card col-12">
+        <h2>About Me</h2>
+        <p class="section-intro">
+          I built these projects to practice the kind of work I want to do professionally: secure AWS workloads, improve cloud architecture,
+          troubleshoot distributed systems, and integrate modern AI services in a production-minded way.
+        </p>
+      </section>
+    </div>
+
+    <div class="footer">
+      This fast-skim view is designed to communicate value in under a minute, with deeper technical detail available below the fold.
+    </div>
+  </div>
+</body>
+</html>
