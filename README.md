@@ -129,12 +129,6 @@ This project demonstrates:
 
 ---
 
-## 📸 (Optional: Add Screenshots)
-
-_Add screenshots of the UI and responses here_
-
----
-
 ## 🔮 Future Improvements
 
 - Add authentication using Amazon Cognito  
@@ -151,10 +145,4 @@ Randall Tillman
 Cloud Security Engineer focused on securing AI-powered AWS workloads  
 
 
-
----
-
-## 🔗 Live Demo (Optional)
-
-_Add your CloudFront URL here if publicly accessible_
 
