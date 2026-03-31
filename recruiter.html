@@ -6,7 +6,7 @@
   <title>Recruiter Mode | AWS Project Portfolio</title>
   <meta
     name="description"
-    content="Fast-skim recruiter summary of two AWS projects: a security lab and a serverless AI application."
+    content="Fast-skim recruiter summary of two AWS projects: a security lab and a serverless AI application with security operations and remediation work."
   />
   <style>
     :root {
@@ -19,6 +19,7 @@
       --accent: #f59e0b;
       --accent-2: #38bdf8;
       --success: #22c55e;
+      --danger: #f87171;
       --border-soft: rgba(148, 163, 184, 0.18);
       --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
       --radius: 20px;
@@ -115,7 +116,7 @@
     .subtitle {
       color: var(--muted);
       font-size: 1.04rem;
-      max-width: 820px;
+      max-width: 860px;
       margin: 0 0 18px;
     }
 
@@ -212,20 +213,21 @@
 
     .col-12 { grid-column: span 12; }
     .col-6 { grid-column: span 6; }
-    .col-4 { grid-column: span 4; }
 
     .section-intro {
       color: var(--muted);
       margin: 0 0 16px;
     }
 
-    .project-grid {
+    .project-grid,
+    .mini-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
 
-    .project-box {
+    .project-box,
+    .mini-box {
       background: var(--panel-soft);
       border: 1px solid var(--border-soft);
       border-radius: 18px;
@@ -234,18 +236,22 @@
 
     .project-box p,
     .project-box li,
-    .detail-list li {
+    .detail-list li,
+    .mini-box p,
+    .mini-box li {
       color: var(--muted);
     }
 
     .project-box ul,
-    .detail-list {
+    .detail-list,
+    .mini-box ul {
       margin: 0;
       padding-left: 20px;
     }
 
     .detail-list li + li,
-    .project-box li + li {
+    .project-box li + li,
+    .mini-box li + li {
       margin-top: 8px;
     }
 
@@ -256,6 +262,37 @@
       border-radius: 12px;
       color: #dcfce7;
       margin-top: 16px;
+    }
+
+    .callout-amber {
+      border-left-color: var(--accent);
+      background: rgba(245, 158, 11, 0.1);
+      color: #fde68a;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      background: rgba(2, 6, 23, 0.72);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .metric .big {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .metric .small {
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .code-block {
@@ -270,6 +307,25 @@
       overflow-x: auto;
     }
 
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(11, 18, 32, 0.58);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
     .footer {
       margin-top: 28px;
       text-align: center;
@@ -279,12 +335,13 @@
 
     @media (max-width: 980px) {
       .quick-points,
-      .project-grid {
+      .project-grid,
+      .mini-grid,
+      .metric-row {
         grid-template-columns: 1fr;
       }
 
       .col-6,
-      .col-4,
       .col-12 {
         grid-column: span 12;
       }
@@ -319,10 +376,11 @@
 
     <section class="hero">
       <div class="eyebrow">Recruiter Mode</div>
-      <h1>Two AWS projects built to demonstrate security, serverless architecture, troubleshooting, and practical AI integration.</h1>
+      <h1>Two AWS projects built to demonstrate security engineering, serverless architecture, AI integration, and real remediation work.</h1>
       <p class="subtitle">
         This portfolio highlights one security-focused AWS lab and one serverless AI web application. Together they show cloud security thinking,
-        hands-on debugging, architecture design, and the judgment to simplify systems when that improves security, efficiency, and maintainability.
+        hands-on debugging, architecture design, service dependency awareness, and practical security operations through AWS WAF, AWS Config,
+        AWS Security Hub, and findings remediation.
       </p>
 
       <div class="quick-points">
@@ -335,12 +393,12 @@
           <div class="value">CloudFront, S3, API Gateway, Lambda, Bedrock</div>
         </div>
         <div class="quick-point">
-          <span class="label">Primary Strengths</span>
-          <div class="value">Security, routing, debugging, serverless design</div>
+          <span class="label">Security Operations</span>
+          <div class="value">Security Hub, Config, WAF, findings remediation</div>
         </div>
         <div class="quick-point">
-          <span class="label">AI Experience</span>
-          <div class="value">Bedrock direct inference + Bedrock Agent exposure</div>
+          <span class="label">Primary Strengths</span>
+          <div class="value">Least privilege, debugging, risk reduction, serverless design</div>
         </div>
       </div>
 
@@ -354,6 +412,7 @@
       <a href="#projects">Projects at a Glance</a>
       <a href="#why-it-matters">Why It Matters</a>
       <a href="#technical-details">Technical Details</a>
+      <a href="#security-ops">Security Operations</a>
       <a href="#about">About Me</a>
     </nav>
 
@@ -364,12 +423,12 @@
           <article class="project-box">
             <h3>Project 1 — AWS Security Lab Plan</h3>
             <p>
-              Security-oriented AWS project built around realistic personas such as developer-Alice and analyst-Bob to demonstrate least privilege,
-              separation of duties, monitoring, and workload protection.
+              Security-oriented AWS project built around realistic personas such as developer Alice and analyst Bob to demonstrate least privilege,
+              separation of duties, monitoring, investigation workflows, and workload protection.
             </p>
             <ul>
-              <li>IAM and access control thinking tied to job function</li>
-              <li>Monitoring, logging, and cloud security operations concepts</li>
+              <li>IAM and access control decisions tied to job function</li>
+              <li>CloudTrail, CloudWatch, Athena, Glue, and S3 dependency troubleshooting</li>
               <li>Workload hardening and investigation-oriented design</li>
             </ul>
           </article>
@@ -377,13 +436,13 @@
           <article class="project-box">
             <h3>Project 2 — Ask Hey Stupid</h3>
             <p>
-              Serverless AI web application using CloudFront, S3, API Gateway, Lambda, and Amazon Bedrock. Built to demonstrate routing,
-              CORS troubleshooting, secure delivery, and practical AI integration on AWS.
+              Serverless AI web application using CloudFront, WAF, S3, API Gateway, Lambda, and Amazon Bedrock. Built to demonstrate routing,
+              CORS troubleshooting, secure delivery, LLM control, and practical AWS security operations.
             </p>
             <ul>
-              <li>Single public entry point through CloudFront</li>
-              <li>Frontend delivered from S3, API routed to Lambda</li>
-              <li>Production path simplified for better control and efficiency</li>
+              <li>Single public entry point through CloudFront with WAF protection</li>
+              <li>Frontend delivered from S3, API routed to Lambda, AI handled through Bedrock</li>
+              <li>Architecture simplified for stronger control, lower complexity, and easier operations</li>
             </ul>
           </article>
         </div>
@@ -392,13 +451,14 @@
       <section id="why-it-matters" class="card col-12">
         <h2>Why This Portfolio Stands Out</h2>
         <p class="section-intro">
-          These projects show more than service familiarity. They show engineering judgment.
+          These projects show more than service familiarity. They show engineering judgment, risk thinking, and security follow-through.
         </p>
         <ul class="detail-list">
-          <li>I can build with advanced AWS services, including Amazon Bedrock and Bedrock Agents.</li>
-          <li>I can troubleshoot real-world issues across CloudFront, S3, API Gateway, Lambda, and browser behavior.</li>
+          <li>I can build with advanced AWS services, including Amazon Bedrock and Bedrock Agent exposure during development.</li>
+          <li>I can troubleshoot real-world issues across CloudFront, S3, API Gateway, Lambda, IAM, and browser behavior.</li>
           <li>I know when simplifying architecture is the stronger production decision.</li>
-          <li>I think in terms of security, least privilege, operational visibility, and maintainability.</li>
+          <li>I think in terms of least privilege, attack-surface reduction, operational visibility, and maintainability.</li>
+          <li>I have worked through Security Hub findings and applied real fixes instead of stopping at deployment.</li>
         </ul>
 
         <div class="callout">
@@ -413,6 +473,9 @@
    │
    ▼
 CloudFront
+   │
+   ▼
+AWS WAF
    ├── /              → S3 static site
    └── /prod/ask*     → API Gateway
                             │
@@ -421,17 +484,67 @@ CloudFront
                             │
                             ▼
                      Amazon Bedrock</div>
+        <div class="pill-row">
+          <span class="pill">CloudFront path-based routing</span>
+          <span class="pill">Private S3 origin</span>
+          <span class="pill">Direct Bedrock invocation</span>
+        </div>
       </section>
 
       <section class="card col-6">
         <h2>Technical Highlights</h2>
         <ul class="detail-list">
           <li>CloudFront path-based routing separates website and API traffic.</li>
-          <li>S3 hosts static assets for the frontend.</li>
-          <li>API Gateway and Lambda provide serverless backend processing.</li>
-          <li>Amazon Bedrock powers AI responses.</li>
-          <li>Bedrock Agent experience was part of development exploration, even though the final production path was simplified.</li>
+          <li>S3 hosts static assets while API Gateway and Lambda handle serverless backend processing.</li>
+          <li>Amazon Bedrock powers AI responses with prompt design tuned for controlled output behavior.</li>
+          <li>Architecture was simplified from Bedrock Agents to direct model invocation for better predictability and reduced complexity.</li>
+          <li>WAF adds rate limiting and abuse protection at the edge before requests reach the application path.</li>
         </ul>
+      </section>
+
+      <section id="security-ops" class="card col-12">
+        <h2>Security Operations &amp; Remediation</h2>
+        <p class="section-intro">
+          Ask Hey Stupid evolved from a serverless AI demo into a stronger cloud security portfolio piece through ongoing posture improvement.
+        </p>
+        <div class="metric-row">
+          <div class="metric">
+            <div class="big">100%</div>
+            <div class="small">Critical and high severity Security Hub findings resolved</div>
+          </div>
+          <div class="metric">
+            <div class="big">~50%</div>
+            <div class="small">Medium severity findings remediated so far</div>
+          </div>
+          <div class="metric">
+            <div class="big">3+</div>
+            <div class="small">Security services actively used for posture improvement</div>
+          </div>
+        </div>
+        <div class="mini-grid" style="margin-top:16px;">
+          <article class="mini-box">
+            <h3>Controls Added</h3>
+            <ul>
+              <li>AWS WAF with rate limiting and abuse protection</li>
+              <li>AWS Config for resource configuration visibility</li>
+              <li>AWS Security Hub for centralized findings management</li>
+              <li>Continued CloudWatch and CloudTrail visibility across the environment</li>
+            </ul>
+          </article>
+          <article class="mini-box">
+            <h3>What This Shows</h3>
+            <ul>
+              <li>Ability to move from build phase to security hardening phase</li>
+              <li>Hands-on experience interpreting findings and prioritizing remediation</li>
+              <li>Understanding that security posture is iterative, not one-and-done</li>
+              <li>Comfort balancing protection, usability, and operational simplicity</li>
+            </ul>
+          </article>
+        </div>
+        <div class="callout callout-amber">
+          Security Hub findings were not treated as dashboard noise. Critical and high findings were resolved first, followed by medium-priority issues,
+          reflecting a practical risk-based remediation approach.
+        </div>
       </section>
 
       <section class="card col-6">
@@ -446,7 +559,9 @@ CloudFront
           <li>AWS IAM</li>
           <li>Amazon CloudWatch</li>
           <li>AWS CloudTrail</li>
-          <li>AWS WAF / Security Hub / Config / GuardDuty</li>
+          <li>AWS WAF</li>
+          <li>AWS Security Hub</li>
+          <li>AWS Config</li>
         </ul>
       </section>
 
@@ -457,6 +572,7 @@ CloudFront
           <li>These projects involved real debugging, not just setup.</li>
           <li>The final Ask Hey Stupid design reflects practical tradeoff decisions.</li>
           <li>The portfolio demonstrates both defensive security thinking and hands-on cloud engineering.</li>
+          <li>There is visible follow-through from architecture design into findings remediation.</li>
         </ul>
       </section>
 
@@ -464,7 +580,8 @@ CloudFront
         <h2>About Me</h2>
         <p class="section-intro">
           I built these projects to practice the kind of work I want to do professionally: secure AWS workloads, improve cloud architecture,
-          troubleshoot distributed systems, and integrate modern AI services in a production-minded way.
+          troubleshoot distributed systems, and integrate modern AI services in a production-minded way. My approach is shaped by both technical
+          implementation and risk thinking, with a focus on reducing exposure while keeping systems understandable and maintainable.
         </p>
       </section>
     </div>
