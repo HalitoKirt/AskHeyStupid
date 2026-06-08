@@ -92,6 +92,26 @@
       min-height: 80px;
     }
 
+    .recruiter-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .recruiter-actions a {
+      text-decoration: none;
+    }
+
+    .portfolio-button {
+      background: #111827;
+    }
+
+    .demo-button {
+      background: #2563eb;
+    }
+
     #loading {
       display: none;
       font-size: 1.4rem;
@@ -114,19 +134,6 @@
       const answerEl = document.getElementById("stupid-answer");
 
       const question = inputEl.value.trim();
-      const normalized = question.toLowerCase();
-
-      const recruiterPhrases = [
-        "recruiter mode",
-        "show project summary",
-        "the left shoe is on the right foot"
-      ];
-
-      if (recruiterPhrases.includes(normalized)) {
-        window.location.href = "/recruiter.html";
-        return;
-      }
-
       if (!question) {
         answerEl.innerText = "Ask something dumb first, bro... 😏";
         return;
@@ -172,6 +179,17 @@
   <div class="question-box">
     <input type="text" id="question" placeholder="Type your question here..." />
     <button id="ask-button" onclick="giveStupidAnswer()">ASK NOW</button>
+
+    <div class="recruiter-actions">
+      <a href="/recruiter.html">
+        <button type="button" class="portfolio-button">Cloud Security Portfolio</button>
+      </a>
+
+      <a href="http://secure-ai-platform-dev-alb-1420219170.us-east-2.elb.amazonaws.com/docs" target="_blank" rel="noopener noreferrer">
+        <button type="button" class="demo-button">Live Secure AI Demo</button>
+      </a>
+    </div>
+
     <div id="loading">Thinking stupid thoughts... 🤔</div>
     <div id="stupid-answer">Waiting for stupidity...</div>
   </div>
