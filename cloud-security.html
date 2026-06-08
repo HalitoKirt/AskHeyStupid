@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Cloud Security Engineering Portfolio | Randall Tillman</title>
+  <meta name="description" content="AWS Cloud Security Engineering portfolio covering IAM, least privilege, CloudTrail, CloudWatch, KMS, WAF, CloudFront, API Gateway, Lambda, Bedrock, Terraform, and secure infrastructure as code." />
+
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: #101c33;
+      --panel-2: #142642;
+      --text: #eef6ff;
+      --muted: #a9b8cf;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --warn: #facc15;
+      --danger: #fb7185;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 35%),
+        radial-gradient(circle at top right, rgba(34, 197, 94, 0.12), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 72px 0 52px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin: 0 0 20px;
+      letter-spacing: -2px;
+    }
+
+    .subheadline {
+      max-width: 880px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #03101c;
+      border: none;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      max-width: 880px;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .project {
+      margin-bottom: 24px;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .project-label {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--accent-2);
+      background: rgba(34, 197, 94, 0.08);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .architecture {
+      background: #050b15;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .code-block {
+      white-space: pre;
+      color: #dbeafe;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      min-width: 620px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.92rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .highlight {
+      color: var(--accent-2);
+      font-weight: 800;
+    }
+
+    .footer {
+      padding: 38px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 34px;
+    }
+
+    @media (max-width: 800px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Randall Tillman | Cloud Security Engineering</div>
+      <nav class="nav-links">
+        <a href="recruiter.html">Home</a>
+        <a href="ai-security.html">AI Security</a>
+        <a href="#aws-lab">AWS Security Lab</a>
+        <a href="#terraform">Terraform</a>
+        <a href="#stack">Stack</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="badge">AWS Security • Terraform • Docker • ECS/Fargate • Containers</div>
+
+        <h1>Cloud Security Engineering Portfolio</h1>
+
+        <p class="subheadline">
+          Hands-on AWS security engineering projects focused on least privilege,
+          auditability, edge security, containerized applications, Docker images,
+          ECS/Fargate deployment, Terraform-based infrastructure, logging,
+          monitoring, and secure cloud architecture.
+        </p>
+
+        <p class="subheadline">
+          This page highlights practical work across AWS IAM, CloudTrail, CloudWatch,
+          KMS, Athena, Glue, S3, CloudFront, WAF, API Gateway, Lambda, Bedrock,
+          Docker, Amazon ECR, ECS/Fargate, ALB, and Terraform infrastructure as code.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button primary" href="#aws-lab">View AWS Security Lab</a>
+          <a class="button" href="#container-platform">Container Platform</a>
+          <a class="button" href="#terraform">Terraform Version</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="container">
+        <h2 class="section-title">Portfolio Focus</h2>
+        <p class="section-lead">
+          These projects are designed to show real security engineering ability:
+          building systems, hardening controls, debugging failures, improving
+          observability, and translating architecture into recruiter-ready outcomes.
+        </p>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>Least Privilege</h3>
+            <p>
+              Designed and tested IAM permissions for realistic personas, including
+              developer and analyst access patterns across AWS services.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Auditability</h3>
+            <p>
+              Built logging and monitoring workflows using CloudTrail, CloudWatch,
+              S3 log destinations, KMS encryption, and event investigation.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Infrastructure as Code</h3>
+            <p>
+              Converted cloud architecture into Terraform modules for repeatable,
+              reviewable, and secure provisioning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="aws-lab">
+      <div class="container">
+        <div class="project card">
+          <div class="project-header">
+            <div>
+              <span class="project-label">Project 1</span>
+              <h2 class="section-title">AWS Security Lab</h2>
+            </div>
+          </div>
+
+          <p class="section-lead">
+            A hands-on AWS security lab designed to simulate real cloud security
+            engineering work: identity design, least privilege testing, audit logging,
+            encryption decisions, and access troubleshooting.
+          </p>
+
+          <div class="grid grid-2">
+            <div>
+              <h3>Security Work Performed</h3>
+              <ul>
+                <li>Designed IAM access patterns for separate user personas.</li>
+                <li>Tested least-privilege permissions across AWS services.</li>
+                <li>Configured CloudTrail and CloudWatch logging paths.</li>
+                <li>Explored S3 audit bucket design and log destinations.</li>
+                <li>Reviewed KMS encryption implications for audit logs.</li>
+                <li>Troubleshot access failures using real AWS error messages.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Security Skills Demonstrated</h3>
+              <ul>
+                <li>IAM policy evaluation</li>
+                <li>Least-privilege design</li>
+                <li>CloudTrail event investigation</li>
+                <li>CloudWatch log review</li>
+                <li>KMS key policy reasoning</li>
+                <li>Athena and Glue access troubleshooting</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pill-list">
+            <span class="pill">IAM</span>
+            <span class="pill">Least Privilege</span>
+            <span class="pill">CloudTrail</span>
+            <span class="pill">CloudWatch</span>
+            <span class="pill">S3</span>
+            <span class="pill">KMS</span>
+            <span class="pill">Athena</span>
+            <span class="pill">Glue</span>
+            <span class="pill">Audit Logging</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="askheystupid">
+      <div class="container">
+        <div class="project card">
+          <div class="project-header">
+            <div>
+              <span class="project-label">Project 2</span>
+              <h2 class="section-title">Ask Hey Stupid — Production AWS Application</h2>
+            </div>
+          </div>
+
+          <p class="section-lead">
+            A public-facing serverless AI application using AWS edge, API, compute,
+            and AI services. The project includes CloudFront routing, WAF protections,
+            API Gateway, Lambda, Amazon Bedrock, CORS debugging, and production-style
+            troubleshooting.
+          </p>
+
+          <div class="architecture">
+            <div class="code-block">Browser
+   │
+   ▼
+CloudFront
+   ├── Static site traffic → S3 private origin with OAC
+   │
+   └── API traffic /prod/ask* → API Gateway
+                                  │
+                                  ▼
+                               Lambda
+                                  │
+                                  ▼
+                          Amazon Bedrock</div>
+          </div>
+
+          <div class="grid grid-2" style="margin-top: 18px;">
+            <div>
+              <h3>Security Controls</h3>
+              <ul>
+                <li>CloudFront in front of static and API paths.</li>
+                <li>S3 origin protected using Origin Access Control.</li>
+                <li>AWS WAF attached for edge protection.</li>
+                <li>Rate-based rules for abuse protection.</li>
+                <li>Managed rule groups for common web threats.</li>
+                <li>CORS and preflight testing through CloudFront and API Gateway.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Engineering Work</h3>
+              <ul>
+                <li>Built static frontend delivery through CloudFront.</li>
+                <li>Integrated API Gateway with Lambda backend.</li>
+                <li>Connected Lambda to Amazon Bedrock model invocation.</li>
+                <li>Debugged 403, 4xx, CORS, and missing token behavior.</li>
+                <li>Used CloudWatch logs and curl testing for validation.</li>
+                <li>Improved reliability through structured troubleshooting.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pill-list">
+            <span class="pill">CloudFront</span>
+            <span class="pill">S3 OAC</span>
+            <span class="pill">AWS WAF</span>
+            <span class="pill">API Gateway</span>
+            <span class="pill">Lambda</span>
+            <span class="pill">Amazon Bedrock</span>
+            <span class="pill">CORS</span>
+            <span class="pill">CloudWatch Logs</span>
+            <span class="pill">Serverless Security</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="container-platform">
+      <div class="container">
+        <div class="project card">
+          <div class="project-header">
+            <div>
+              <span class="project-label">Project 3</span>
+              <h2 class="section-title">Secure AI Platform — Docker and ECS/Fargate Deployment</h2>
+            </div>
+          </div>
+
+          <p class="section-lead">
+            Built and deployed a containerized FastAPI security application on AWS using Docker,
+            Amazon ECR, ECS/Fargate, an Application Load Balancer, CloudWatch logs, and IAM task roles.
+            This demonstrates practical container deployment, cloud networking, and production-style
+            troubleshooting.
+          </p>
+
+          <div class="architecture">
+            <div class="code-block">Developer Workstation
+   │
+   ├── Docker build
+   │
+   ├── Push image to Amazon ECR
+   │
+   └── ECS/Fargate service
+          │
+          ├── Application Load Balancer
+          ├── CloudWatch Logs
+          ├── IAM task execution role
+          └── FastAPI /docs, /health, and /ask endpoints</div>
+          </div>
+
+          <div class="grid grid-2" style="margin-top: 18px;">
+            <div>
+              <h3>Container Skills Demonstrated</h3>
+              <ul>
+                <li>Created and tested Docker images for a FastAPI application.</li>
+                <li>Pushed application images to Amazon ECR.</li>
+                <li>Deployed the containerized service to ECS/Fargate.</li>
+                <li>Exposed the application through an AWS Application Load Balancer.</li>
+                <li>Validated live endpoints including /health and /docs.</li>
+                <li>Debugged routing, deployment, and public access issues.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Security Engineering Relevance</h3>
+              <ul>
+                <li>Shows ability to secure and operate modern cloud workloads.</li>
+                <li>Connects application security with infrastructure operations.</li>
+                <li>Demonstrates IAM, logging, networking, and deployment awareness.</li>
+                <li>Supports jobs requiring Docker, containers, ECS, and Terraform.</li>
+                <li>Provides a live demo recruiters can verify.</li>
+                <li>Builds toward production-ready platform security work.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pill-list">
+            <span class="pill">Docker</span>
+            <span class="pill">Containers</span>
+            <span class="pill">Amazon ECR</span>
+            <span class="pill">ECS/Fargate</span>
+            <span class="pill">Application Load Balancer</span>
+            <span class="pill">CloudWatch Logs</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">IAM Task Roles</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="terraform">
+      <div class="container">
+        <div class="project card">
+          <div class="project-header">
+            <div>
+              <span class="project-label">Project 4</span>
+              <h2 class="section-title">Ask Hey Stupid — Terraform Infrastructure</h2>
+            </div>
+          </div>
+
+          <p class="section-lead">
+            A Terraform-based version of the application architecture built to show
+            infrastructure as code, modular design, repeatable deployment, provider
+            configuration, and secure cloud provisioning.
+          </p>
+
+          <div class="architecture">
+            <div class="code-block">Terraform Root Module
+   │
+   ├── modules/logging
+   │      └── audit/logging resources
+   │
+   ├── modules/security
+   │      └── WAF and edge security controls
+   │
+   ├── modules/frontend
+   │      └── S3 + CloudFront static site delivery
+   │
+   └── modules/backend
+          └── Lambda + API Gateway + Bedrock integration</div>
+          </div>
+
+          <div class="grid grid-2" style="margin-top: 18px;">
+            <div>
+              <h3>Terraform Skills Demonstrated</h3>
+              <ul>
+                <li>Modular Terraform project structure.</li>
+                <li>Reusable frontend, backend, logging, and security modules.</li>
+                <li>AWS provider aliasing for CloudFront/WAF requirements.</li>
+                <li>S3 bucket configuration with public access blocking.</li>
+                <li>CloudFront distribution provisioning.</li>
+                <li>Lambda packaging and deployment troubleshooting.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Why This Matters</h3>
+              <ul>
+                <li>Infrastructure becomes version-controlled.</li>
+                <li>Security controls can be reviewed before deployment.</li>
+                <li>Cloud architecture becomes repeatable.</li>
+                <li>Misconfigurations are easier to detect and fix.</li>
+                <li>Changes can be tested through plan/apply workflows.</li>
+                <li>Hiring managers see practical IaC experience.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="pill-list">
+            <span class="pill">Terraform</span>
+            <span class="pill">Infrastructure as Code</span>
+            <span class="pill">Modules</span>
+            <span class="pill">Provider Aliases</span>
+            <span class="pill">Secure Provisioning</span>
+            <span class="pill">Repeatability</span>
+            <span class="pill">Version Control</span>
+            <span class="pill">Automation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="threat-table">
+      <div class="container">
+        <h2 class="section-title">Cloud Security Themes</h2>
+        <p class="section-lead">
+          These projects connect directly to common cloud security responsibilities
+          found in real job postings.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Security Area</th>
+              <th>Work Demonstrated</th>
+              <th>Recruiter Translation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Identity and Access</td>
+              <td>IAM policy design, least-privilege testing, access troubleshooting.</td>
+              <td>Can help reduce excessive permissions and investigate access failures.</td>
+            </tr>
+            <tr>
+              <td>Logging and Detection</td>
+              <td>CloudTrail, CloudWatch, S3 audit logging, event review.</td>
+              <td>Understands auditability, investigation, and security visibility.</td>
+            </tr>
+            <tr>
+              <td>Edge Security</td>
+              <td>CloudFront, AWS WAF, managed rules, rate limiting, abuse protection.</td>
+              <td>Can help protect public-facing web applications.</td>
+            </tr>
+            <tr>
+              <td>Serverless Security</td>
+              <td>API Gateway, Lambda, Bedrock integration, CORS debugging.</td>
+              <td>Can secure and troubleshoot modern serverless application patterns.</td>
+            </tr>
+            <tr>
+              <td>Infrastructure as Code</td>
+              <td>Terraform modules, repeatable provisioning, provider configuration.</td>
+              <td>Can define, review, and improve cloud infrastructure using IaC.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="container">
+        <h2 class="section-title">Technical Stack</h2>
+        <p class="section-lead">
+          AWS services and tools used across the cloud security portfolio.
+        </p>
+
+        <div class="card">
+          <div class="pill-list">
+            <span class="pill">AWS IAM</span>
+            <span class="pill">CloudTrail</span>
+            <span class="pill">CloudWatch</span>
+            <span class="pill">S3</span>
+            <span class="pill">KMS</span>
+            <span class="pill">Athena</span>
+            <span class="pill">Glue</span>
+            <span class="pill">CloudFront</span>
+            <span class="pill">AWS WAF</span>
+            <span class="pill">API Gateway</span>
+            <span class="pill">Lambda</span>
+            <span class="pill">Amazon Bedrock</span>
+            <span class="pill">Docker</span>
+            <span class="pill">Amazon ECR</span>
+            <span class="pill">ECS/Fargate</span>
+            <span class="pill">Application Load Balancer</span>
+            <span class="pill">Containers</span>
+            <span class="pill">Terraform</span>
+            <span class="pill">GitHub</span>
+            <span class="pill">AWS CLI</span>
+            <span class="pill">curl</span>
+            <span class="pill">Linux</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary">
+      <div class="container">
+        <div class="card">
+          <h2 class="section-title">Executive Summary</h2>
+          <p>
+            I built and secured AWS-based projects that demonstrate practical cloud
+            security engineering skills: IAM least privilege, audit logging,
+            CloudTrail and CloudWatch visibility, KMS encryption reasoning, serverless
+            application security, Docker containerization, ECS/Fargate deployment,
+            CloudFront and WAF edge protection, and Terraform infrastructure as code.
+          </p>
+
+          <p>
+            <span class="highlight">The strongest signal is hands-on execution:</span>
+            building real systems, breaking and fixing permissions, debugging AWS
+            errors, improving security controls, and converting architecture into
+            repeatable Terraform modules.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Randall Tillman | Cloud Security + Terraform + AWS Security Engineering
+    </div>
+  </footer>
+</body>
+</html>

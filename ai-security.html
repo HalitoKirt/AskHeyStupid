@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Security Engineering Portfolio | Randall Tillman</title>
+  <meta name="description" content="Secure AI Learning Platform portfolio page covering LLM guardrails, RAG security, prompt injection detection, telemetry, adversarial testing, and secure AI architecture." />
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111936;
+      --panel-2: #162044;
+      --text: #eef2ff;
+      --muted: #aab4d4;
+      --accent: #7dd3fc;
+      --accent-2: #a78bfa;
+      --good: #86efac;
+      --warn: #fde68a;
+      --danger: #fca5a5;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.18), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(125, 211, 252, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin: 0 0 20px;
+      letter-spacing: -2px;
+    }
+
+    .subheadline {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #07111f;
+      border: none;
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-lead {
+      color: var(--muted);
+      max-width: 850px;
+      margin-bottom: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .architecture {
+      background: #070b18;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      min-width: 680px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .arrow {
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--accent);
+      background: rgba(125, 211, 252, 0.08);
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.92rem;
+    }
+
+    .highlight {
+      color: var(--good);
+      font-weight: 800;
+    }
+
+    .footer {
+      padding: 38px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 34px;
+    }
+
+    @media (max-width: 800px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Randall Tillman | AI Security Engineering</div>
+      <nav class="nav-links">
+        <a href="recruiter.html">Home</a>
+        <a href="cloud-security.html">Cloud Security</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#controls">Controls</a>
+        <a href="#stack">Stack</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="badge">Flagship Project: Secure AI Learning Platform</div>
+        <h1>AI Security Engineering Portfolio</h1>
+        <p class="subheadline">
+          Secure AI systems, LLM guardrails, RAG security, adversarial testing,
+          telemetry, and secure application architecture.
+        </p>
+
+        <p class="subheadline">
+          This project demonstrates how AI applications can be built with security
+          controls from the beginning: authentication, rate limiting, prompt-injection
+          detection, policy enforcement, context filtering, agent control, output
+          review, and traceable telemetry.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button primary" href="#architecture">View Architecture</a>
+          <a class="button" href="#controls">Security Controls</a>
+          <a class="button" href="#why">Why It Matters</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="container">
+        <h2 class="section-title">Secure AI Architecture</h2>
+        <p class="section-lead">
+          The platform is designed like a real AI security workflow, where requests
+          are inspected before reaching retrieval or agent execution, and outputs are
+          monitored before returning to the user.
+        </p>
+
+        <div class="architecture">
+          <div class="flow">
+            <div class="flow-step">Client</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">FastAPI</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">API Key Authentication</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Rate Limiting</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Prompt Injection Detection</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Policy Engine</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">RAG Retrieval</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Context Guardrails</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">AI Agents</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Output Guardrails</div>
+            <div class="arrow">↓</div>
+            <div class="flow-step">Telemetry / Tracing</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="controls">
+      <div class="container">
+        <h2 class="section-title">Security Controls</h2>
+        <p class="section-lead">
+          The platform is built around layered controls that reduce risk before,
+          during, and after AI execution.
+        </p>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>Input Guardrails</h3>
+            <p>
+              Detects suspicious user input, prompt-injection attempts, jailbreak
+              language, unsafe requests, and policy violations before agent execution.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Context Guardrails</h3>
+            <p>
+              Protects retrieved RAG context by filtering unsafe, irrelevant, or
+              potentially manipulated content before it reaches the model.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Output Guardrails</h3>
+            <p>
+              Reviews AI-generated responses for unsafe behavior, policy violations,
+              and security-sensitive leakage before returning output to the client.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Threat Telemetry</h3>
+            <p>
+              Logs security events with request identifiers, component names, risk
+              levels, and traceable execution flow for investigation and auditing.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Adversarial Testing</h3>
+            <p>
+              Uses malicious and edge-case prompts to test whether guardrails detect,
+              classify, block, and log high-risk behavior correctly.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Threat Modeling</h3>
+            <p>
+              Maps realistic AI application threats including prompt injection, data
+              leakage, insecure retrieval, agent misuse, and weak monitoring.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="threat-model">
+      <div class="container">
+        <h2 class="section-title">Threat Model Snapshot</h2>
+        <p class="section-lead">
+          This project treats AI security as an application security problem, not just
+          a prompt-engineering problem.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Threat</th>
+              <th>Risk</th>
+              <th>Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prompt Injection</td>
+              <td>Attackers attempt to override system instructions or bypass policy.</td>
+              <td>Prompt inspection, risk classification, blocking logic, telemetry.</td>
+            </tr>
+            <tr>
+              <td>Unsafe RAG Context</td>
+              <td>Retrieved documents may contain malicious or irrelevant instructions.</td>
+              <td>Context filtering, retrieval boundaries, context review.</td>
+            </tr>
+            <tr>
+              <td>Agent Misuse</td>
+              <td>AI agents may be tricked into performing unintended actions.</td>
+              <td>Policy engine, scoped agent behavior, controlled execution flow.</td>
+            </tr>
+            <tr>
+              <td>Data Leakage</td>
+              <td>Sensitive content could be exposed through logs, prompts, or responses.</td>
+              <td>Sanitized telemetry, output checks, limited context exposure.</td>
+            </tr>
+            <tr>
+              <td>Weak Monitoring</td>
+              <td>Security events may occur without enough detail for investigation.</td>
+              <td>Structured logs, request IDs, component-level tracing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="container">
+        <h2 class="section-title">Technical Stack</h2>
+        <p class="section-lead">
+          The platform combines secure API design, local AI execution, retrieval,
+          multi-agent workflows, and security telemetry.
+        </p>
+
+        <div class="card">
+          <h3>Core Technologies</h3>
+          <div class="pill-list">
+            <span class="pill">Python</span>
+            <span class="pill">FastAPI</span>
+            <span class="pill">Ollama</span>
+            <span class="pill">Local LLM</span>
+            <span class="pill">ChromaDB</span>
+            <span class="pill">RAG</span>
+            <span class="pill">Sentence Transformers</span>
+            <span class="pill">Telemetry</span>
+            <span class="pill">Security Agents</span>
+            <span class="pill">Prompt Injection Detection</span>
+            <span class="pill">API Key Authentication</span>
+            <span class="pill">Rate Limiting</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="container">
+        <h2 class="section-title">Why This Matters</h2>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Recruiter Translation</h3>
+            <p>
+              This project shows practical experience securing AI applications:
+              authentication, abuse prevention, guardrails, RAG security, logging,
+              policy enforcement, and adversarial testing.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Security Engineering Value</h3>
+            <p>
+              The work demonstrates the ability to build, test, monitor, and harden
+              modern AI systems instead of only describing AI security concepts.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Cloud Security Alignment</h3>
+            <p>
+              The same design principles apply to cloud environments: least privilege,
+              controlled access, detection, logging, auditability, and secure system
+              boundaries.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Portfolio Signal</h3>
+            <p>
+              <span class="highlight">This is not a tutorial clone.</span>
+              It is a security-focused engineering project with real architecture,
+              controls, testing, and measurable security outcomes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary">
+      <div class="container">
+        <div class="card">
+          <h2 class="section-title">Executive Summary</h2>
+          <p>
+            I built a secure AI learning platform to demonstrate hands-on AI security
+            engineering. The system includes FastAPI, local LLM execution, RAG retrieval,
+            multi-agent workflows, prompt-injection detection, context guardrails,
+            output review, API key authentication, rate limiting, and structured security
+            telemetry.
+          </p>
+          <p>
+            The goal is to show how AI systems can be designed with security,
+            auditability, and abuse prevention from the start.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Randall Tillman | Secure AI + Cloud Security Portfolio
+    </div>
+  </footer>
+</body>
+</html>
