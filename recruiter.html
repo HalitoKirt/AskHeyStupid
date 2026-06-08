@@ -250,8 +250,10 @@
       <nav>
         <a href="/">Home</a>
         <a href="#projects">Projects</a>
+        <a href="#evolution">Evolution</a>
         <a href="#architecture">Architecture</a>
         <a href="#controls">Controls</a>
+        <a href="#governance">Governance</a>
         <a href="#validation">Validation</a>
       </nav>
     </div>
@@ -267,7 +269,7 @@
         <p class="lead">
           I build, deploy, troubleshoot, and secure cloud applications using AWS,
           Terraform, Docker, ECS/Fargate, IAM, WAF, FastAPI, RAG security,
-          prompt injection detection, telemetry, and audit logging.
+          telemetry, and audit logging.
         </p>
 
         <div class="pill-list">
@@ -278,6 +280,7 @@
           <span class="pill">IAM</span>
           <span class="pill">CloudTrail</span>
           <span class="pill">CloudWatch</span>
+          <span class="pill">Cost Governance</span>
           <span class="pill">WAF</span>
           <span class="pill">FastAPI</span>
           <span class="pill">Python</span>
@@ -289,6 +292,18 @@
           <a class="button primary" href="http://secure-ai-platform-dev-alb-1420219170.us-east-2.elb.amazonaws.com/docs" target="_blank" rel="noopener noreferrer">Launch Live Secure AI Demo</a>
           <a class="button" href="https://github.com/HalitoKirt" target="_blank" rel="noopener noreferrer">View GitHub</a>
           <a class="button" href="/">Back to AskHeyStupid</a>
+        </div>
+
+        <div class="card" style="margin-top:30px;">
+          <h3>Built From Scratch</h3>
+
+          <ul style="list-style:none; padding-left:0;">
+            <li><span class="check">✓</span> AWS Security Lab</li>
+            <li><span class="check">✓</span> Public Cloud Application</li>
+            <li><span class="check">✓</span> Secure AI Platform</li>
+            <li><span class="check">✓</span> Containerized Deployment</li>
+            <li><span class="check">✓</span> Live AWS Demo</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -368,12 +383,14 @@
             </p>
             <ul>
               <li>Docker image build and deployment</li>
+              <li>Terraform infrastructure deployment and configuration management</li>
               <li>Amazon ECR and ECS/Fargate hosting</li>
               <li>Application Load Balancer public access</li>
               <li>Prompt injection detection and blocking</li>
               <li>Structured telemetry and audit logging</li>
             </ul>
             <div class="pill-list">
+              <span class="pill">Terraform</span>
               <span class="pill">Docker</span>
               <span class="pill">ECR</span>
               <span class="pill">ECS/Fargate</span>
@@ -389,30 +406,45 @@
       </div>
     </section>
 
-    <section id="architecture">
+    <section id="evolution">
       <div class="container">
-        <h2>Architecture Snapshot</h2>
-        <p class="lead">
-          The portfolio demonstrates the ability to connect application development,
-          cloud infrastructure, security controls, and operational visibility.
-        </p>
+        <h2>Project Evolution</h2>
 
-        <div class="architecture">Internet
-   |
-   +--> CloudFront + WAF
-   |        |
-   |        +--> S3 static website
-   |        +--> API Gateway + Lambda + Bedrock
-   |
-   +--> Application Load Balancer
+        <div class="architecture">Local Development Environment
             |
-            +--> ECS/Fargate
-                    |
-                    +--> Docker container
-                    +--> FastAPI
-                    +--> RAG workflow
-                    +--> Security policy checks
-                    +--> Telemetry and audit logs</div>
+            V
+    FastAPI Application
+            |
+            V
+    RAG Knowledge Platform
+            |
+            V
+    Security Controls
+    (API Auth • Rate Limiting • Prompt Injection Detection)
+            |
+            V
+    Docker Containerization
+            |
+            V
+    Amazon ECR
+            |
+            V
+    ECS/Fargate Deployment
+            |
+            V
+    Application Load Balancer
+            |
+            V
+    AWS Production Deployment
+            |
+            V
+    Live Recruiter Demo</div>
+
+        <p class="lead" style="margin-top:20px;">
+          Demonstrates the complete lifecycle of a modern workload:
+          local development, security engineering, containerization,
+          cloud deployment, operations, troubleshooting, and validation.
+        </p>
       </div>
     </section>
 
@@ -445,6 +477,56 @@
             </ul>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="governance">
+      <div class="container">
+        <h2>Operational Governance</h2>
+        <p class="lead">
+          Security engineering also requires cost awareness, monitoring, abuse prevention,
+          and operational controls so cloud and AI workloads do not become business risks.
+        </p>
+
+        <div class="card">
+          <ul>
+            <li><span class="check">✓</span> AWS Budgets and billing alerts planned</li>
+            <li><span class="check">✓</span> Cost Anomaly Detection planned</li>
+            <li><span class="check">✓</span> Rate limiting to reduce abuse-driven cost</li>
+            <li><span class="check">✓</span> CloudWatch logging and visibility</li>
+            <li><span class="check">✓</span> Log retention strategy planned</li>
+            <li><span class="check">✓</span> Environment-aware resource management</li>
+            <li><span class="check">✓</span> Cost-aware architecture decisions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="architecture">
+      <div class="container">
+        <h2>Architecture Snapshot</h2>
+        <p class="lead">
+          The portfolio demonstrates the ability to connect application development,
+          cloud infrastructure, security controls, and operational visibility.
+        </p>
+
+        <div class="architecture">Internet
+   |
+   +--> CloudFront + WAF
+   |        |
+   |        +--> S3 static website
+   |        +--> API Gateway + Lambda + Bedrock
+   |
+   +--> Application Load Balancer
+            |
+            +--> ECS/Fargate
+                    |
+                    +--> Docker container
+                    +--> FastAPI
+                    +--> RAG workflow
+                    +--> Security policy checks
+                    +--> Telemetry and audit logs</div>
       </div>
     </section>
 
