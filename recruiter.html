@@ -4,25 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Randall Tillman | Cloud Security & AI Security Portfolio</title>
-  <meta name="description" content="Cloud Security and AI Security Engineering portfolio featuring AWS, Terraform, IAM, WAF, serverless security, secure AI systems, RAG security, guardrails, and telemetry." />
+  <title>Randall Tillman | Security Engineering Portfolio</title>
+  <meta name="description" content="Security Engineering portfolio featuring AWS, Terraform, Docker, ECS/Fargate, IAM, WAF, FastAPI, RAG security, prompt injection detection, telemetry, and secure cloud architecture." />
 
   <style>
     :root {
       --bg: #080f1f;
       --panel: #111a2f;
+      --panel2: #0d1629;
       --text: #eef6ff;
       --muted: #aab7cf;
       --accent: #38bdf8;
-      --accent-2: #a78bfa;
+      --accent2: #a78bfa;
       --good: #22c55e;
       --border: rgba(255,255,255,0.12);
       --shadow: 0 20px 50px rgba(0,0,0,0.35);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -35,14 +34,7 @@
       line-height: 1.6;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: inherit; }
 
     .container {
       width: min(1120px, 92%);
@@ -50,8 +42,13 @@
     }
 
     header {
-      padding: 28px 0;
+      padding: 24px 0;
       border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(8,15,31,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 5;
     }
 
     .nav {
@@ -64,81 +61,64 @@
 
     .brand {
       font-weight: 800;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.03em;
     }
 
-    .nav-links {
+    nav {
       display: flex;
-      gap: 18px;
+      gap: 14px;
       flex-wrap: wrap;
       font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    section {
+      padding: 54px 0;
     }
 
     .hero {
-      padding: 78px 0 56px;
+      padding: 72px 0 46px;
     }
 
     .badge {
       display: inline-block;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
       color: var(--accent);
-      background: rgba(56, 189, 248, 0.08);
-      font-size: 0.9rem;
-      margin-bottom: 22px;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
       line-height: 1;
-      margin: 0 0 20px;
-      letter-spacing: -2px;
+      margin: 0 0 18px;
     }
 
-    .subheadline {
-      max-width: 900px;
-      color: var(--muted);
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      margin-bottom: 28px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 13px 18px;
-      border-radius: 12px;
-      font-weight: 700;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-    }
-
-    .button.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #06101d;
-      border: none;
-    }
-
-    section {
-      padding: 34px 0;
-    }
-
-    .section-title {
-      font-size: 2rem;
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
       margin: 0 0 12px;
-      letter-spacing: -0.5px;
     }
 
-    .section-lead {
+    h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .lead {
+      max-width: 860px;
+      font-size: 1.22rem;
       color: var(--muted);
-      max-width: 880px;
       margin-bottom: 24px;
     }
 
@@ -147,84 +127,117 @@
       gap: 18px;
     }
 
-    .grid-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .grid-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      background: linear-gradient(180deg, rgba(17,26,47,0.96), rgba(13,22,41,0.96));
       border: 1px solid var(--border);
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 24px;
       box-shadow: var(--shadow);
     }
 
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 1.25rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      margin-bottom: 0;
-    }
-
-    .path-card {
+    .button-row {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 320px;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
     }
 
-    .tag {
+    .button {
       display: inline-block;
-      width: fit-content;
-      margin-bottom: 14px;
-      padding: 7px 10px;
-      border-radius: 999px;
+      text-decoration: none;
       border: 1px solid var(--border);
-      color: var(--good);
-      background: rgba(34,197,94,0.08);
-      font-size: 0.85rem;
-      font-weight: 700;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 800;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #06101f;
+      border: 0;
     }
 
     .pill-list {
       display: flex;
-      flex-wrap: wrap;
       gap: 10px;
+      flex-wrap: wrap;
       margin-top: 16px;
     }
 
     .pill {
-      padding: 8px 11px;
+      display: inline-block;
+      padding: 7px 10px;
       border-radius: 999px;
+      background: rgba(255,255,255,0.07);
       border: 1px solid var(--border);
       color: var(--text);
-      background: rgba(255,255,255,0.05);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
-    .footer {
-      padding: 38px 0;
-      border-top: 1px solid var(--border);
+    ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
       color: var(--muted);
-      margin-top: 34px;
     }
 
-    @media (max-width: 800px) {
-      .grid-2,
-      .grid-3 {
+    li {
+      margin: 7px 0;
+    }
+
+    .project-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .label {
+      color: var(--good);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .architecture {
+      font-family: "Courier New", monospace;
+      white-space: pre-wrap;
+      background: #050b16;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      color: #dbeafe;
+      overflow-x: auto;
+    }
+
+    .check {
+      color: var(--good);
+      font-weight: 800;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 820px) {
+      .grid-3, .grid-2 {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 48px;
+      header {
+        position: static;
       }
     }
   </style>
@@ -234,11 +247,12 @@
   <header>
     <div class="container nav">
       <div class="brand">Randall Tillman | Security Engineering Portfolio</div>
-      <nav class="nav-links">
-        <a href="ai-security.html">AI Security</a>
-        <a href="cloud-security.html">Cloud Security</a>
-        <a href="#skills">Skills</a>
-        <a href="#summary">Summary</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#controls">Controls</a>
+        <a href="#validation">Validation</a>
       </nav>
     </div>
   </header>
@@ -246,202 +260,237 @@
   <main>
     <section class="hero">
       <div class="container">
-        <div class="badge">Cloud Security • AI Security • AWS • Terraform</div>
+        <div class="badge">AWS Security • Terraform • Docker • ECS/Fargate • AI Security</div>
 
-        <h1>Security Engineering Portfolio</h1>
+        <h1>Cloud Security Engineer focused on securing modern AWS and AI workloads.</h1>
 
-        <p class="subheadline">
-          I build and secure cloud and AI systems using AWS, Terraform, IAM,
-          CloudTrail, CloudWatch, WAF, serverless architecture, FastAPI, RAG security,
-          LLM guardrails, adversarial testing, and security telemetry.
+        <p class="lead">
+          I build, deploy, troubleshoot, and secure cloud applications using AWS,
+          Terraform, Docker, ECS/Fargate, IAM, WAF, FastAPI, RAG security,
+          prompt injection detection, telemetry, and audit logging.
         </p>
 
-        <p class="subheadline">
-          My portfolio focuses on practical engineering: building real systems,
-          hardening them, debugging failures, improving visibility, and translating
-          security controls into business value.
-        </p>
+        <div class="pill-list">
+          <span class="pill">AWS</span>
+          <span class="pill">Terraform</span>
+          <span class="pill">Docker</span>
+          <span class="pill">ECS/Fargate</span>
+          <span class="pill">IAM</span>
+          <span class="pill">CloudTrail</span>
+          <span class="pill">CloudWatch</span>
+          <span class="pill">WAF</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">Python</span>
+          <span class="pill">RAG</span>
+          <span class="pill">AI Security</span>
+        </div>
 
-        <div class="hero-actions">
-          <a class="button primary" href="ai-security.html">View AI Security Portfolio</a>
-          <a class="button" href="cloud-security.html">View Cloud Security Portfolio</a>
+        <div class="button-row">
+          <a class="button primary" href="http://secure-ai-platform-dev-alb-1420219170.us-east-2.elb.amazonaws.com/docs" target="_blank" rel="noopener noreferrer">Launch Live Secure AI Demo</a>
+          <a class="button" href="https://github.com/HalitoKirt" target="_blank" rel="noopener noreferrer">View GitHub</a>
+          <a class="button" href="/">Back to AskHeyStupid</a>
         </div>
       </div>
     </section>
 
-    <section id="paths">
+    <section id="projects">
       <div class="container">
-        <h2 class="section-title">Choose a Portfolio Path</h2>
-        <p class="section-lead">
-          Two focused pages make it easy to review the work by hiring need:
-          secure AI systems or AWS cloud security engineering.
+        <h2>What I Have Built</h2>
+        <p class="lead">
+          Three hands-on projects showing AWS security, public cloud application deployment,
+          infrastructure as code, container deployment, and AI security controls.
         </p>
-
-        <div class="grid grid-2">
-          <div class="card path-card">
-            <div>
-              <span class="tag">Flagship Project</span>
-              <h3>AI Security Engineering</h3>
-              <p>
-                Secure AI Learning Platform covering FastAPI, local LLM workflows,
-                RAG security, prompt-injection detection, guardrails, policy checks,
-                adversarial testing, and telemetry.
-              </p>
-
-              <div class="pill-list">
-                <span class="pill">LLM Guardrails</span>
-                <span class="pill">RAG Security</span>
-                <span class="pill">Prompt Injection</span>
-                <span class="pill">Telemetry</span>
-              </div>
-            </div>
-
-            <div class="hero-actions">
-              <a class="button primary" href="ai-security.html">Open AI Security</a>
-            </div>
-          </div>
-
-          <div class="card path-card">
-            <div>
-              <span class="tag">AWS + Terraform</span>
-              <h3>Cloud Security Engineering</h3>
-              <p>
-                AWS security portfolio covering IAM least privilege, CloudTrail,
-                CloudWatch, KMS, Athena, Glue, CloudFront, WAF, API Gateway, Lambda,
-                Bedrock, and Terraform infrastructure as code.
-              </p>
-
-              <div class="pill-list">
-                <span class="pill">AWS Security</span>
-                <span class="pill">Terraform</span>
-                <span class="pill">WAF</span>
-                <span class="pill">Audit Logging</span>
-              </div>
-            </div>
-
-            <div class="hero-actions">
-              <a class="button primary" href="cloud-security.html">Open Cloud Security</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="summary">
-      <div class="container">
-        <h2 class="section-title">Executive Summary</h2>
 
         <div class="grid grid-3">
           <div class="card">
-            <h3>What I Build</h3>
+            <div class="project-title">
+              <h3>AWS Security Lab</h3>
+              <span class="label">Project 1</span>
+            </div>
             <p>
-              Secure cloud and AI systems with real architecture, controlled access,
-              guardrails, monitoring, and repeatable deployment patterns.
+              Built a security lab focused on IAM least privilege, audit logging,
+              monitoring, encryption reasoning, and investigation workflows.
             </p>
+            <ul>
+              <li>IAM persona-based access</li>
+              <li>CloudTrail and CloudWatch logging</li>
+              <li>S3 log destinations and KMS encryption</li>
+              <li>Athena and Glue analytics workflow</li>
+              <li>Permission troubleshooting and remediation</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">IAM</span>
+              <span class="pill">CloudTrail</span>
+              <span class="pill">CloudWatch</span>
+              <span class="pill">KMS</span>
+              <span class="pill">Athena</span>
+              <span class="pill">Glue</span>
+            </div>
           </div>
 
           <div class="card">
-            <h3>How I Think</h3>
+            <div class="project-title">
+              <h3>AskHeyStupid Public App</h3>
+              <span class="label">Project 2</span>
+            </div>
             <p>
-              I approach security through risk reduction, least privilege, visibility,
-              abuse prevention, secure defaults, and evidence-based troubleshooting.
+              Built a public AWS application with edge delivery, WAF protection,
+              serverless API integration, Bedrock inference, and production troubleshooting.
             </p>
+            <ul>
+              <li>CloudFront and S3 static website delivery</li>
+              <li>AWS WAF edge protections</li>
+              <li>API Gateway and Lambda backend</li>
+              <li>Amazon Bedrock model integration</li>
+              <li>Live route debugging and CloudFront invalidation</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">CloudFront</span>
+              <span class="pill">WAF</span>
+              <span class="pill">API Gateway</span>
+              <span class="pill">Lambda</span>
+              <span class="pill">Bedrock</span>
+            </div>
+            <div class="button-row">
+              <a class="button" href="/">Visit Live Site</a>
+            </div>
           </div>
 
           <div class="card">
-            <h3>What This Shows</h3>
+            <div class="project-title">
+              <h3>Secure AI Platform</h3>
+              <span class="label">Project 3</span>
+            </div>
             <p>
-              Hands-on ability to build, secure, debug, document, and explain modern
-              cloud and AI security projects.
+              Built and deployed a containerized AI security platform with FastAPI,
+              RAG, prompt injection detection, API authentication, rate limiting,
+              telemetry, and audit logs.
             </p>
+            <ul>
+              <li>Docker image build and deployment</li>
+              <li>Amazon ECR and ECS/Fargate hosting</li>
+              <li>Application Load Balancer public access</li>
+              <li>Prompt injection detection and blocking</li>
+              <li>Structured telemetry and audit logging</li>
+            </ul>
+            <div class="pill-list">
+              <span class="pill">Docker</span>
+              <span class="pill">ECR</span>
+              <span class="pill">ECS/Fargate</span>
+              <span class="pill">ALB</span>
+              <span class="pill">FastAPI</span>
+              <span class="pill">RAG</span>
+            </div>
+            <div class="button-row">
+              <a class="button primary" href="http://secure-ai-platform-dev-alb-1420219170.us-east-2.elb.amazonaws.com/docs" target="_blank" rel="noopener noreferrer">Launch Demo</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="skills">
+    <section id="architecture">
       <div class="container">
-        <h2 class="section-title">Core Skills Demonstrated</h2>
-        <p class="section-lead">
-          These are the practical skills shown across the AI Security and Cloud
-          Security portfolio pages.
+        <h2>Architecture Snapshot</h2>
+        <p class="lead">
+          The portfolio demonstrates the ability to connect application development,
+          cloud infrastructure, security controls, and operational visibility.
         </p>
 
-        <div class="card">
-          <div class="pill-list">
-            <span class="pill">AWS IAM</span>
-            <span class="pill">Least Privilege</span>
-            <span class="pill">CloudTrail</span>
-            <span class="pill">CloudWatch</span>
-            <span class="pill">KMS</span>
-            <span class="pill">S3</span>
-            <span class="pill">CloudFront</span>
-            <span class="pill">AWS WAF</span>
-            <span class="pill">API Gateway</span>
-            <span class="pill">Lambda</span>
-            <span class="pill">Amazon Bedrock</span>
-            <span class="pill">Terraform</span>
-            <span class="pill">Infrastructure as Code</span>
-            <span class="pill">FastAPI</span>
-            <span class="pill">Python</span>
-            <span class="pill">Ollama</span>
-            <span class="pill">ChromaDB</span>
-            <span class="pill">RAG Security</span>
-            <span class="pill">Prompt Injection Detection</span>
-            <span class="pill">Security Telemetry</span>
-            <span class="pill">Adversarial Testing</span>
-            <span class="pill">Threat Modeling</span>
-          </div>
-        </div>
+        <div class="architecture">Internet
+   |
+   +--> CloudFront + WAF
+   |        |
+   |        +--> S3 static website
+   |        +--> API Gateway + Lambda + Bedrock
+   |
+   +--> Application Load Balancer
+            |
+            +--> ECS/Fargate
+                    |
+                    +--> Docker container
+                    +--> FastAPI
+                    +--> RAG workflow
+                    +--> Security policy checks
+                    +--> Telemetry and audit logs</div>
       </div>
     </section>
 
-    <section id="value">
+    <section id="controls">
       <div class="container">
-        <h2 class="section-title">Recruiter Translation</h2>
+        <h2>Security Controls Demonstrated</h2>
 
         <div class="grid grid-2">
           <div class="card">
-            <h3>Cloud Security Value</h3>
-            <p>
-              I can help teams secure AWS workloads through IAM review, logging,
-              monitoring, edge protections, serverless security, and Terraform-based
-              infrastructure improvements.
-            </p>
+            <h3>Cloud Security</h3>
+            <ul>
+              <li>IAM least privilege design and troubleshooting</li>
+              <li>CloudTrail and CloudWatch visibility</li>
+              <li>AWS WAF and CloudFront edge protection</li>
+              <li>S3 access controls and logging destinations</li>
+              <li>KMS encryption reasoning</li>
+              <li>Terraform infrastructure as code</li>
+            </ul>
           </div>
 
           <div class="card">
-            <h3>AI Security Value</h3>
-            <p>
-              I can help teams reason about secure AI application design, including
-              prompt-injection risk, RAG context security, guardrails, policy controls,
-              abuse prevention, and telemetry.
-            </p>
+            <h3>Application and AI Security</h3>
+            <ul>
+              <li>API key authentication</li>
+              <li>Rate limiting</li>
+              <li>Prompt injection detection</li>
+              <li>Policy-based request blocking</li>
+              <li>RAG context filtering</li>
+              <li>Structured audit logs and request tracing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="validation">
+      <div class="container">
+        <h2>Live Validation</h2>
+        <p class="lead">
+          This portfolio is designed to let a recruiter or hiring manager verify that
+          the work exists, the systems are live, and the projects are backed by code.
+        </p>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Verifiable Evidence</h3>
+            <ul>
+              <li><span class="check">✓</span> Public website</li>
+              <li><span class="check">✓</span> Live AWS-hosted Secure AI demo</li>
+              <li><span class="check">✓</span> GitHub repositories</li>
+              <li><span class="check">✓</span> Containerized application deployment</li>
+              <li><span class="check">✓</span> FastAPI interactive docs</li>
+              <li><span class="check">✓</span> Security controls implemented in code</li>
+            </ul>
           </div>
 
           <div class="card">
-            <h3>Hands-On Signal</h3>
+            <h3>Why This Matters</h3>
             <p>
-              These projects were built through real implementation, testing,
-              troubleshooting, and hardening—not just diagrams or theory.
+              These projects demonstrate practical experience securing AWS workloads,
+              deploying containerized applications, implementing infrastructure as code,
+              and building security controls for modern AI systems.
             </p>
-          </div>
 
-          <div class="card">
-            <h3>Growth Direction</h3>
-            <p>
-              My target role is cloud security engineering with strong overlap in
-              secure AI systems, infrastructure as code, detection, and prevention.
-            </p>
+            <div class="button-row">
+              <a class="button primary" href="http://secure-ai-platform-dev-alb-1420219170.us-east-2.elb.amazonaws.com/docs" target="_blank" rel="noopener noreferrer">Open Live Demo</a>
+              <a class="button" href="https://github.com/HalitoKirt" target="_blank" rel="noopener noreferrer">Open GitHub</a>
+              <a class="button" href="/">Return Home</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer>
     <div class="container">
-      Randall Tillman | Cloud Security & AI Security Engineering Portfolio
+      Randall Tillman | Cloud Security • AWS • Terraform • Docker • ECS/Fargate • AI Security
     </div>
   </footer>
 </body>
