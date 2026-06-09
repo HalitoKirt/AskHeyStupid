@@ -255,6 +255,7 @@
         <a href="#controls">Controls</a>
         <a href="#governance">Governance</a>
         <a href="#validation">Validation</a>
+        <a href="#monitoring">Security Monitoring</a>
       </nav>
     </div>
   </header>
@@ -262,7 +263,7 @@
   <main>
     <section class="hero">
       <div class="container">
-        <div class="badge">AWS Security • Terraform • Docker • ECS/Fargate • AI Security</div>
+        <div class="badge">AWS Security • Security Hub CSPM • AWS Config • Terraform • Docker • ECS/Fargate • AI Security</div>
 
         <h1>Cloud Security Engineer focused on securing modern AWS and AI workloads.</h1>
 
@@ -286,6 +287,10 @@
           <span class="pill">Python</span>
           <span class="pill">RAG</span>
           <span class="pill">AI Security</span>
+          <span class="pill">AWS Config</span>
+          <span class="pill">Security Hub CSPM</span>
+          <span class="pill">GuardDuty</span>
+          <span class="pill">Inspector</span>
         </div>
 
         <div class="button-row">
@@ -293,7 +298,6 @@
           <a class="button" href="https://github.com/HalitoKirt" target="_blank" rel="noopener noreferrer">View GitHub</a>
           <a class="button" href="/">Back to AskHeyStupid</a>
         </div>
-
         <div class="card" style="margin-top:30px;">
           <h3>Built From Scratch</h3>
 
@@ -358,6 +362,7 @@
               <li>API Gateway and Lambda backend</li>
               <li>Amazon Bedrock model integration</li>
               <li>Live route debugging and CloudFront invalidation</li>
+              <li>Converted the architecture into Terraform modules for repeatable infrastructure deployment</li>
             </ul>
             <div class="pill-list">
               <span class="pill">CloudFront</span>
@@ -365,9 +370,10 @@
               <span class="pill">API Gateway</span>
               <span class="pill">Lambda</span>
               <span class="pill">Bedrock</span>
+              <span class="pill">Terraform</span>
             </div>
             <div class="button-row">
-              <a class="button" href="/">Visit Live Site</a>
+              <a class="button primary" href="/">Visit Live Site</a>
             </div>
           </div>
 
@@ -408,7 +414,7 @@
 
     <section id="evolution">
       <div class="container">
-        <h2>Project Evolution</h2>
+        <h2>Secure AI Platform Evolution</h2>
 
         <div class="architecture">Local Development Environment
             |
@@ -478,7 +484,57 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>  
+
+     <section id="monitoring">
+       <div class="container">
+         <h2>Continuous Security Monitoring & Compliance</h2>
+         <p class="lead">
+           Beyond building cloud workloads, I use AWS security services to monitor posture,
+           identify misconfigurations, investigate findings, and validate security controls
+           across live AWS environments.
+         </p>
+
+         <div class="grid grid-2">
+           <div class="card">
+             <h3>Security Posture Management</h3>
+
+             <ul>
+               <li>AWS Config enabled with continuous resource recording</li>
+               <li>AWS Security Hub CSPM used for compliance posture monitoring</li>
+               <li>Security Hub standards reviewed across AWS Foundational Security Best Practices and CIS controls</li>
+               <li>Configuration findings reviewed for API Gateway, ALB, IAM, encryption, and networking controls</li>
+               <li>Critical and high-severity findings triaged and remediated where appropriate</li>
+             </ul>
+             <div class="pill-list">
+               <span class="pill">AWS Config</span>
+               <span class="pill">Security Hub CSPM</span>
+               <span class="pill">Compliance</span>
+               <span class="pill">Remediation</span>
+             </div>
+           </div>
+
+           <div class="card">
+             <h3>Threat Detection & Vulnerability Management</h3>
+             <ul>
+               <li>Amazon GuardDuty enabled for AWS threat detection</li>
+               <li>Amazon Inspector used for vulnerability assessment of ECR container images</li>
+               <li>Security findings reviewed after deploying the Secure AI Platform to ECS/Fargate</li>
+               <li>Container image findings connected to real Docker, ECR, and ECS deployment work</li>
+               <li>Security Hub used as the central dashboard for prioritizing cloud risk</li>
+             </ul>
+             <div class="pill-list">
+               <span class="pill">GuardDuty</span>
+               <span class="pill">Inspector</span>
+               <span class="pill">ECR Scanning</span>
+               <span class="pill">Container Security</span>
+             </div>
+           </div>
+         </div>
+       </div>
+     </section>
+
+     
 
     <section id="governance">
       <div class="container">
@@ -505,19 +561,23 @@
 
     <section id="architecture">
       <div class="container">
-        <h2>Architecture Snapshot</h2>
+        <h2>Portfolio Architecture Snapshot</h2>
         <p class="lead">
-          The portfolio demonstrates the ability to connect application development,
-          cloud infrastructure, security controls, and operational visibility.
+          This diagram separates the two live systems in the portfolio:
+          the public AskHeyStupid application and the AWS-hosted Secure AI Platform.
         </p>
 
-        <div class="architecture">Internet
+        <div class="architecture">AskHeyStupid Public Application
+Internet
    |
    +--> CloudFront + WAF
-   |        |
-   |        +--> S3 static website
-   |        +--> API Gateway + Lambda + Bedrock
-   |
+            |
+            +--> S3 static website
+            +--> API Gateway + Lambda + Bedrock
+
+Secure AI Platform
+Internet
+   |   
    +--> Application Load Balancer
             |
             +--> ECS/Fargate
